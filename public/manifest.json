@@ -1,0 +1,11 @@
+{
+  "name": "Whaled-Tools",
+  "short_name": "WhaledT",
+  "theme_color": "#ee8422",
+  "background_color": "#ffffff",
+  "display": "standalone",
+  "orientation": "landscape",
+  "icons": [
+  ],
+  "splash_pages": null
+}
