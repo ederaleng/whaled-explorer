@@ -1,15 +1,11 @@
 <template lang="pug">
   div
-    a prueba
+    a transactions
 </template>
 <script>
 export default {
   name: "index_transactions",
-  data: ()=>({
-
-  }),
-  methods:{
-    
-  }
-}
+  data: () => ({}),
+  methods: {}
+};
 </script>

@@ -2,10 +2,10 @@ import Vue from "vue";
 import Router from "vue-router";
 
 // components
-import Home from "./components/home"
-import Perfil from "./components/perfil"
-import Transactions from "./components/transactions"
-import Page404 from "./components/page404"
+import Home from "./views/components/home";
+import Perfil from "./views/components/perfil";
+import Transactions from "./views/components/transactions";
+import Page404 from "./views/components/page404";
 
 Vue.use(Router);
 

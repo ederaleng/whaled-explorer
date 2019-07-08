@@ -1,5 +1,5 @@
 {
-  "name": "whaled-tools",
+  "name": "whaled-explorer",
   "version": "0.1.0",
   "private": false,
   "scripts": {
@@ -8,8 +8,10 @@
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
+    "@whaleshares/wlsjs": "^0.1.6",
     "bootstrap": "^4.3.1",
     "bootstrap-vue": "^2.0.0-rc.15",
+    "jquery": "^3.3.1",
     "lodash": "^4.17.11",
     "moment": "^2.24.0",
     "vue": "^2.6.6",
@@ -40,5 +42,6 @@
       "vue-cli-service lint",
       "git add"
     ]
-  }
+  },
+  "license": "MIT"
 }
