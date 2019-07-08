@@ -5,10 +5,10 @@
 </template>
 <script>
 import Nav from "./views/nav";
-import Load_Node from "./tools/ErrorNodes";
+import CatchErrors from "./tools/ErrorNodes";
 export default {
   created() {
-    Load_Node.ErrorNodes();
+    CatchErrors.ErrorNodes();
   },
   components: {
     Nav
