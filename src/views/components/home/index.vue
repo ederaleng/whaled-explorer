@@ -41,7 +41,7 @@
         </div>
       </div>
       <div class="col-sm-12 col-lg-6">
-        <div class="text-center" v-if="current_block">
+        <div class="text-center" v-if="!current_block">
           <img
             src="https://courts.ms.gov/images_folder/demo/loading.gif"
             width="50px"
@@ -49,6 +49,7 @@
             alt="loading"
           />
         </div>
+        <tableInformation v-else :Current_Block="getCurrentProperties" />
       </div>
     </div>
   </div>
@@ -57,6 +58,7 @@
 import wlsjs from "@whaleshares/wlsjs";
 import _get from "lodash/get";
 import CatchErrors from "../../../tools/ErrorNodes";
+import tableInformation from "./components/table";
 
 export default {
   name: "Home",
@@ -66,22 +68,31 @@ export default {
     finished: false,
     finished_las_block: null
   }),
+  computed: {
+    getCurrentProperties() {
+      return this.current_block;
+    }
+  },
+  components: {
+    tableInformation
+  },
   created() {
     this.starting_blocks();
   },
   methods: {
-    async starting_blocks(fails = 0) {
+    async starting_blocks() {
+      await this.searchDynamicGlobalProperties()
+      this.last_five_blocks(_get(this.current_block, "head_block_number", null));
+    },
+    async searchDynamicGlobalProperties(fails = 0){
       try {
         wlsjs.api.setOptions({ url: window.current_node });
         this.current_block = await wlsjs.api.getDynamicGlobalPropertiesAsync();
-        this.last_five_blocks(
-          _get(this.current_block, "head_block_number", null),
-          0
-        );
+        setTimeout(() => { this.searchDynamicGlobalProperties() }, 3000);
       } catch (error) {
         if (fails > 4) return console.log("error in code", error);
         CatchErrors.ErrorNodes(window.current_node);
-        this.starting_blocks(fails++);
+        this.searchDynamicGlobalProperties(fails++);
       }
     },
     async last_five_blocks(current_block, cicle = 0) {
