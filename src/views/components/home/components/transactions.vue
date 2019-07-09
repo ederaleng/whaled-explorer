@@ -1,4 +1,6 @@
-<template> </template>
+<template>
+  <h2>transactions in Home</h2>
+</template>
 <script>
 export default {
   name: "transaction",
