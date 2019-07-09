@@ -37,7 +37,11 @@
           </div>
         </div>
         <div v-else>
-          <TransactionComponent  v-for="(operation, key) in full_transactions" :key="key" :unique_transaction="operation" />
+          <TransactionComponent
+            v-for="(operation, key) in full_transactions"
+            :key="key"
+            :unique_transaction="operation"
+          />
         </div>
       </div>
       <div class="col-sm-12 col-lg-6">
@@ -59,7 +63,7 @@ import wlsjs from "@whaleshares/wlsjs";
 import _get from "lodash/get";
 import CatchErrors from "../../../tools/ErrorNodes";
 import tableInformation from "./components/table";
-import TransactionComponent from './components/transactions'
+import TransactionComponent from "./components/transactions";
 
 export default {
   name: "Home",
@@ -83,14 +87,18 @@ export default {
   },
   methods: {
     async starting_blocks() {
-      await this.searchDynamicGlobalProperties()
-      this.last_five_blocks(_get(this.current_block, "head_block_number", null));
+      await this.searchDynamicGlobalProperties();
+      this.last_five_blocks(
+        _get(this.current_block, "head_block_number", null)
+      );
     },
-    async searchDynamicGlobalProperties(fails = 0){
+    async searchDynamicGlobalProperties(fails = 0) {
       try {
         wlsjs.api.setOptions({ url: window.current_node });
         this.current_block = await wlsjs.api.getDynamicGlobalPropertiesAsync();
-        setTimeout(() => { this.searchDynamicGlobalProperties() }, 3000);
+        setTimeout(() => {
+          this.searchDynamicGlobalProperties();
+        }, 3000);
       } catch (error) {
         if (fails > 4) return console.log("error in code", error);
         CatchErrors.ErrorNodes(window.current_node);
@@ -101,7 +109,9 @@ export default {
       try {
         this.finished = false;
         var res_operations = await wlsjs.api.getBlockAsync(current_block);
-        this.full_transactions = this.full_transactions.concat(res_operations.transactions);
+        this.full_transactions = this.full_transactions.concat(
+          res_operations.transactions
+        );
         if (cicle <= 10) this.last_five_blocks(current_block - 1, cicle + 1);
         else {
           this.finished = true;

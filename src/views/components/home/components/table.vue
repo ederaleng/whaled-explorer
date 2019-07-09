@@ -25,7 +25,7 @@ export default {
 };
 </script>
 <style scoped>
-.tablestyle{
+.tablestyle {
   color: #004085;
   background-color: #cce5ff;
   border-color: #b8daff;
@@ -33,15 +33,15 @@ export default {
   width: 100%;
   overflow-x: auto;
 }
-.titletable{
+.titletable {
   background-color: #004085;
   text-align: center;
   color: white;
-  border-top-left-radius: .25rem;
-  border-top-right-radius: .25rem;
+  border-top-left-radius: 0.25rem;
+  border-top-right-radius: 0.25rem;
 }
-.trtitletable{
-  border-top-left-radius: .25rem;
-  border-top-right-radius: .25rem;
+.trtitletable {
+  border-top-left-radius: 0.25rem;
+  border-top-right-radius: 0.25rem;
 }
 </style>
