@@ -64,16 +64,19 @@ import _get from "lodash/get";
 import CatchErrors from "../../../tools/ErrorNodes";
 import tableInformation from "./components/table";
 import TransactionComponent from "./components/transactions";
+import { mapState } from 'vuex'
 
 export default {
   name: "Home",
   data: () => ({
-    current_block: null,
     full_transactions: [],
     finished: false,
     finished_las_block: null
   }),
   computed: {
+    ...mapState({
+      current_block: state => state.dynamicglobalproperties.properties
+    }),
     getCurrentProperties() {
       return this.current_block;
     }
@@ -87,24 +90,11 @@ export default {
   },
   methods: {
     async starting_blocks() {
-      await this.searchDynamicGlobalProperties();
       this.last_five_blocks(
         _get(this.current_block, "head_block_number", null)
       );
     },
-    async searchDynamicGlobalProperties(fails = 0) {
-      try {
-        wlsjs.api.setOptions({ url: window.current_node });
-        this.current_block = await wlsjs.api.getDynamicGlobalPropertiesAsync();
-        setTimeout(() => {
-          this.searchDynamicGlobalProperties();
-        }, 3000);
-      } catch (error) {
-        if (fails > 4) return console.log("error in code", error);
-        CatchErrors.ErrorNodes(window.current_node);
-        this.searchDynamicGlobalProperties(fails++);
-      }
-    },
+
     async last_five_blocks(current_block, cicle = 0) {
       try {
         this.finished = false;

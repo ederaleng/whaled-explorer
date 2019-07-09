@@ -18,6 +18,7 @@ import wlsjs from "@whaleshares/wlsjs";
 import perfilData from "./components/perfilData";
 import transactions from "./components/transactions";
 import CatchErrors from "../../../tools/ErrorNodes";
+import _get from 'lodash/get';
 
 export default {
   name: "Perfil",
@@ -47,7 +48,8 @@ export default {
     async searchInfoUser(username, fails = 0) {
       try {
         wlsjs.api.setOptions({ url: window.current_node });
-        this.username_data = await wlsjs.api.getAccountsAsync([username]);
+        let account = await wlsjs.api.getAccountsAsync([username]);
+        this.username_data = _get(account,"[0]")
       } catch (error) {
         if (fails > 3) console.log(error);
         CatchErrors.ErrorNodes(window.current_node);

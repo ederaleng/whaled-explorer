@@ -6,6 +6,7 @@ import Vue from "vue";
 import Vuex from "vuex";
 
 // Other Modules
+import dynamicglobalproperties from './dynamicglobalproperties';
 
 Vue.use(Vuex);
 
@@ -15,6 +16,7 @@ export default new Vuex.Store({
   mutations,
   actions,
   getters,
-
-  modules: {}
+  modules: {
+    dynamicglobalproperties
+  }
 });
