@@ -4,28 +4,55 @@
     <h5>check the username and try again</h5>
   </div>
   <div class="container" v-else>
-    <div className="row">
-      <h3 className="col-12 titleUsername">{{ `@${username}` }}</h3>
+    <div class="row">
+      <h3 class="col-12 titleUsername">{{ `@${username}` }}</h3>
     </div>
     <div class="row">
-      <div class="col-12"></div>
-      <div class="col-12"></div>
+      <perfilData :username="info_username" />
+      <transactions />
     </div>
   </div>
 </template>
 <script>
 import wlsjs from "@whaleshares/wlsjs";
+import perfilData from "./components/perfilData";
+import transactions from "./components/transactions";
+import CatchErrors from "../../../tools/ErrorNodes";
 
 export default {
   name: "Perfil",
   data: () => ({
     isValid: true,
-    username: null
+    username: null,
+    username_data: null
   }),
+  components: {
+    perfilData,
+    transactions
+  },
   created() {
     this.username = this.$route.params.id.replace(/@/g, "");
     if (wlsjs.utils.validateAccountName(this.username)) {
       this.isValid = false;
+    } else {
+      this.searchInfoUser(this.username);
+    }
+  },
+  computed:{
+    info_username(){
+      return this.username_data;
+    }
+  },
+  methods: {
+    async searchInfoUser(username, fails = 0) {
+      try {
+        wlsjs.api.setOptions({ url: window.current_node });
+        this.username_data = await wlsjs.api.getAccountsAsync([username]);
+      } catch (error) {
+        if (fails > 3) console.log(error);
+        CatchErrors.ErrorNodes(window.current_node);
+        this.searchInfoUser(username, fails + 1);
+      }
     }
   }
 };
