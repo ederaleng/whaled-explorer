@@ -10,25 +10,31 @@ import Page404 from "./views/components/page404";
 Vue.use(Router);
 
 export default new Router({
+  mode: 'history',
   routes: [
     {
       path: "/",
-      name: "home",
+      name: "Home",
+      component: Home
+    },
+    {
+      path: "/witnesses",
+      name: "Witnesses",
       component: Home
     },
     {
       path: "/:id",
-      name: "perfil",
+      name: "Perfil",
       component: Perfil
     },
     {
       path: "/trx/:id",
-      name: "transactions",
+      name: "Transactions",
       component: Transactions
     },
     {
       path: "*",
-      name: "page-404",
+      name: "Page-404",
       component: Page404
     }
   ]

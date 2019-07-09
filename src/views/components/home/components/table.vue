@@ -6,7 +6,7 @@
       </tr>
 
       <tr v-for="(key_ob, key) in keys_obj" :key="key">
-        <th>{{ key_ob }}:</th>
+        <th>{{ key_ob.replace(/_/g, " ") }}:</th>
         <td>{{ Current_Block[key_ob] }}</td>
       </tr>
     </tbody>
@@ -24,3 +24,24 @@ export default {
   }
 };
 </script>
+<style scoped>
+.tablestyle{
+  color: #004085;
+  background-color: #cce5ff;
+  border-color: #b8daff;
+  display: flow-root;
+  width: 100%;
+  overflow-x: auto;
+}
+.titletable{
+  background-color: #004085;
+  text-align: center;
+  color: white;
+  border-top-left-radius: .25rem;
+  border-top-right-radius: .25rem;
+}
+.trtitletable{
+  border-top-left-radius: .25rem;
+  border-top-right-radius: .25rem;
+}
+</style>

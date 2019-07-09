@@ -32,8 +32,4 @@ export default {
   name: "nav-bar"
 };
 </script>
-<style scoped>
-.left_text {
-  right: 0px;
-}
-</style>
+<style scoped></style>
