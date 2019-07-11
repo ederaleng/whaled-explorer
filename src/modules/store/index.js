@@ -6,7 +6,7 @@ import Vue from "vue";
 import Vuex from "vuex";
 
 // Other Modules
-import dynamicglobalproperties from './dynamicglobalproperties';
+import dynamicglobalproperties from "./dynamicglobalproperties";
 
 Vue.use(Vuex);
 

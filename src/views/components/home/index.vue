@@ -64,7 +64,7 @@ import _get from "lodash/get";
 import CatchErrors from "../../../tools/ErrorNodes";
 import tableInformation from "./components/table";
 import TransactionComponent from "./components/transactions";
-import { mapState } from 'vuex'
+import { mapState } from "vuex";
 
 export default {
   name: "Home",

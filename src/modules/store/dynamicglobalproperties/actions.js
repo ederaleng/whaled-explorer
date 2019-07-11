@@ -1,5 +1,5 @@
 export default {
-  setproperties({ commit }, dt){
+  setproperties({ commit }, dt) {
     commit("setState", { key: "properties", value: dt });
   }
 };

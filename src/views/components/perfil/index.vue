@@ -9,7 +9,7 @@
     </div>
     <div class="row">
       <perfilData :username="info_username" />
-      <transactions />
+      <transactions :history="history_username" />
     </div>
   </div>
 </template>
@@ -18,14 +18,16 @@ import wlsjs from "@whaleshares/wlsjs";
 import perfilData from "./components/perfilData";
 import transactions from "./components/transactions";
 import CatchErrors from "../../../tools/ErrorNodes";
-import _get from 'lodash/get';
+import _get from "lodash/get";
 
 export default {
   name: "Perfil",
   data: () => ({
     isValid: true,
     username: null,
-    username_data: null
+    username_data: null,
+    history: null,
+    page: 1
   }),
   components: {
     perfilData,
@@ -36,24 +38,42 @@ export default {
     if (wlsjs.utils.validateAccountName(this.username)) {
       this.isValid = false;
     } else {
-      this.searchInfoUser(this.username);
+      this.search_info_user(this.username);
+      this.search_history(this.username);
     }
   },
-  computed:{
-    info_username(){
+  computed: {
+    info_username() {
       return this.username_data;
+    },
+    history_username() {
+      return this.history;
     }
   },
   methods: {
-    async searchInfoUser(username, fails = 0) {
+    async search_info_user(username, fails = 0) {
       try {
         wlsjs.api.setOptions({ url: window.current_node });
         let account = await wlsjs.api.getAccountsAsync([username]);
-        this.username_data = _get(account,"[0]")
+        this.username_data = _get(account, "[0]");
       } catch (error) {
         if (fails > 3) console.log(error);
         CatchErrors.ErrorNodes(window.current_node);
         this.searchInfoUser(username, fails + 1);
+      }
+    },
+    async search_history(username, fails = 0) {
+      try {
+        const init = this.page * 100 * -1;
+        this.history = await wlsjs.api.getAccountHistoryAsync(
+          username,
+          init,
+          100
+        );
+      } catch (error) {
+        if (fails > 3) console.log(error);
+        CatchErrors.ErrorNodes(window.current_node);
+        this.search_history(username, fails + 1);
       }
     }
   }
