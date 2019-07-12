@@ -64,12 +64,13 @@ export default {
     },
     async search_history(username, fails = 0) {
       try {
-        const init = this.page * 100 * -1;
+        const init = (this.page * 100) * -1;
         this.history = await wlsjs.api.getAccountHistoryAsync(
           username,
           init,
           100
         );
+        console.log(this.history)
       } catch (error) {
         if (fails > 3) console.log(error);
         CatchErrors.ErrorNodes(window.current_node);

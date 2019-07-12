@@ -1,5 +1,5 @@
 <template>
-  <div class="col-lg-8 col-sm-12" v-if="!username">
+  <div class="col-lg-8 col-sm-12" v-if="!history">
     <center>
       <img
         src="https://courts.ms.gov/images_folder/demo/loading.gif"
