@@ -9,14 +9,19 @@
       />
     </center>
   </div>
-  <div v-else>
-    <h2>transactions in perfil</h2>
+  <div class="col-lg-8 col-sm-12" v-else>
+    <operation v-for="(op, key) in history" :key="key" :operation="op" />
   </div>
 </template>
 <script>
+import operation from "./operation";
+
 export default {
   name: "transactions",
   props: ["history"],
+  components: {
+    operation
+  },
   created() {
     console.log(this.history);
   }
