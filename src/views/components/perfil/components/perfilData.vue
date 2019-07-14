@@ -76,8 +76,7 @@
           </div>
           <div class="col">
             <center>
-              <p class="mboton">age</p>
-              <h5 class="mboton">{{ created_account() }}</h5>
+              <p class="mboton">{{ created_account() }}</p>
               <span class="miniature">{{ age() }}</span>
             </center>
           </div>
@@ -96,7 +95,9 @@
         <table>
           <tbody>
             <tr v-for="(key_obj, key) in keys_users" :key="key">
-              <th v-if="username[key_obj]">{{ key_obj.replace(/_/, " ") }}:</th>
+              <th v-if="username[key_obj]">
+                {{ key_obj.replace(/_/g, " ") }}:
+              </th>
               <td v-if="username[key_obj]">{{ username[key_obj] }}</td>
             </tr>
           </tbody>

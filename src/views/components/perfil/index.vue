@@ -34,12 +34,11 @@ export default {
     transactions
   },
   created() {
-    this.username = this.$route.params.id.replace(/@/g, "");
-    if (wlsjs.utils.validateAccountName(this.username)) {
-      this.isValid = false;
-    } else {
-      this.search_info_user(this.username);
-      this.search_history(this.username);
+    this.fetch();
+  },
+  watch: {
+    current_user_route() {
+      this.fetch();
     }
   },
   computed: {
@@ -48,31 +47,52 @@ export default {
     },
     history_username() {
       return this.history;
+    },
+    current_user_route() {
+      return this.$route.params.id.replace(/@/g, "");
     }
   },
   methods: {
+    fetch() {
+      this.username = this.$route.params.id.replace(/@/g, "");
+      if (wlsjs.utils.validateAccountName(this.username)) {
+        this.isValid = false;
+      } else {
+        this.search_info_user(this.username);
+        this.search_history(this.username);
+      }
+    },
     async search_info_user(username, fails = 0) {
       try {
         wlsjs.api.setOptions({ url: window.current_node });
         let account = await wlsjs.api.getAccountsAsync([username]);
         this.username_data = _get(account, "[0]");
+        if (!this.username_data) {
+          this.$router.push({ name: "Error404" });
+        }
       } catch (error) {
-        if (fails > 3) console.log(error);
+        if (fails > 3) {
+          console.log(error);
+          this.$router.push({ name: "Error404" });
+        }
         CatchErrors.ErrorNodes(window.current_node);
         this.searchInfoUser(username, fails + 1);
       }
     },
     async search_history(username, fails = 0) {
       try {
+        wlsjs.api.setOptions({ url: window.current_node });
         const init = this.page * 100 * -1;
         this.history = await wlsjs.api.getAccountHistoryAsync(
           username,
           init,
           100
         );
-        console.log(this.history);
       } catch (error) {
-        if (fails > 3) console.log(error);
+        if (fails > 3) {
+          console.log(error);
+          this.$router.push({ name: "Error404" });
+        }
         CatchErrors.ErrorNodes(window.current_node);
         this.search_history(username, fails + 1);
       }

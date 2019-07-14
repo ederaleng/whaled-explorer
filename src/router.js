@@ -33,9 +33,14 @@ export default new Router({
       component: Transactions
     },
     {
+      path: "/error",
+      name: "Error404",
+      component: Page404
+    },
+    {
       path: "*",
       name: "Page-404",
-      component: Page404
+      redirect: "/error"
     }
   ]
 });

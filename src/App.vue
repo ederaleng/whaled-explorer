@@ -25,6 +25,7 @@ export default {
     }),
     async DynamicGlobalProperties() {
       try {
+        wlsjs.api.setOptions({ url: window.current_node });
         let data = await wlsjs.api.getDynamicGlobalPropertiesAsync();
         this.setproperties(data);
         setTimeout(() => {

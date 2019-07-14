@@ -97,6 +97,7 @@ export default {
 
     async last_five_blocks(current_block, cicle = 0) {
       try {
+        wlsjs.api.setOptions({ url: window.current_node });
         this.finished = false;
         var res_operations = await wlsjs.api.getBlockAsync(current_block);
         this.full_transactions = this.full_transactions.concat(
