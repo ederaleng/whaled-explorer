@@ -1,7 +1,8 @@
-<template lang="pug">
-  div
-    Nav
-    router-view
+<template>
+  <div>
+    <Nav></Nav>
+    <router-view></router-view>
+  </div>
 </template>
 <script>
 import Nav from "./views/nav";

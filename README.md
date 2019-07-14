@@ -1,4 +1,4 @@
-# Whaled-Tools
+# Whaled-Explorer
 
 ## Project setup
 ```
